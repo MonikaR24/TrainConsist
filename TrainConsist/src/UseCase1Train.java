@@ -1,81 +1,38 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * MAIN CLASS - UseCase2TrainConsistMgmnt
+ * MAIN CLASS - UseCase1Train
  *
- * Use Case 2: Add Passenger Bogies to Train
+ * Use Case 3: Track Unique Bogie IDs
  *
- * Description:
- * This class demonstrates how passenger bogies can be
- * managed dynamically using ArrayList operations.
- *
- * At this stage, the application:
- * - Adds new bogies to the train
- * - Removes existing bogies
- * - Checks for bogie availability
- * - Displays the final consist
- *
- * This maps CRUD operations using ArrayList.
- *
- * @author Developer
- * @version 2.0
+ * Ensures no duplicate bogie IDs are added.
  */
 public class UseCase1Train {
 
     public static void main(String[] args) {
 
-        // Create train consist
-        List<String> trainConsist = new ArrayList<>();
+        // HashSet to store unique bogie IDs
+        Set<String> bogieIds = new HashSet<>();
 
-        System.out.println("====================================");
-        System.out.println(" Train Consist Management System ");
-        System.out.println("====================================");
+        // Adding bogies
+        System.out.println("Adding Bogie IDs...");
 
-        // 🔹 ADD bogies (Create)
-        System.out.println("\nAdding passenger bogies...");
-        trainConsist.add("Sleeper Coach S1");
-        trainConsist.add("Sleeper Coach S2");
-        trainConsist.add("AC Coach A1");
-        trainConsist.add("General Coach G1");
+        bogieIds.add("S1");
+        bogieIds.add("S2");
+        bogieIds.add("A1");
+        bogieIds.add("S1"); // duplicate
 
-        displayTrainConsist(trainConsist);
-
-        // 🔹 REMOVE bogie (Delete)
-        System.out.println("\nRemoving a bogie (AC Coach A1)...");
-        trainConsist.remove("AC Coach A1");
-
-        displayTrainConsist(trainConsist);
-
-        // 🔹 CHECK availability (Read)
-        System.out.println("\nChecking bogie availability...");
-        if (trainConsist.contains("Sleeper Coach S1")) {
-            System.out.println("Sleeper Coach S1 is available in the train.");
-        } else {
-            System.out.println("Sleeper Coach S1 is NOT available.");
+        // Display result
+        System.out.println("\nUnique Bogie IDs in Train:");
+        for (String id : bogieIds) {
+            System.out.println(id);
         }
 
-        // 🔹 FINAL STATE
-        System.out.println("\nFinal Train Consist:");
-        displayTrainConsist(trainConsist);
-    }
-
-    /**
-     * Method to display train consist
-     */
-    public static void displayTrainConsist(List<String> consist) {
-
-        System.out.println("\nCurrent Train Consist:");
-        System.out.println("--------------------------------");
-
-        if (consist.isEmpty()) {
-            System.out.println("No bogies attached. Train is EMPTY.");
-        } else {
-            for (int i = 0; i < consist.size(); i++) {
-                System.out.println("Bogie " + (i + 1) + " : " + consist.get(i));
-            }
+        // Check duplicate manually
+        boolean added = bogieIds.add("A1");
+        if (!added) {
+            System.out.println("\nDuplicate Bogie ID 'A1' not added.");
         }
-
-        System.out.println("--------------------------------");
     }
 }

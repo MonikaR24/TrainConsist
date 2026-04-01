@@ -1,38 +1,47 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
 
 /**
- * MAIN CLASS - UseCase1Train
+ * MAIN CLASS - UseCase4TrainConsistMgmnt
  *
- * Use Case 3: Track Unique Bogie IDs
+ * Use Case 4: Maintain Ordered Bogie Consist
  *
- * Ensures no duplicate bogie IDs are added.
+ * Description:
+ * This class models the physical chaining of train bogies
+ * using LinkedList for ordered operations.
+ *
+ * @author Developer
+ * @version 4.0
  */
 public class UseCase1Train {
 
     public static void main(String[] args) {
 
-        // HashSet to store unique bogie IDs
-        Set<String> bogieIds = new HashSet<>();
+        // Create LinkedList for ordered bogies
+        LinkedList<String> train = new LinkedList<>();
 
-        // Adding bogies
-        System.out.println("Adding Bogie IDs...");
+        // 🔹 Add bogies in sequence
+        train.add("S1");
+        train.add("S2");
+        train.add("A1");
 
-        bogieIds.add("S1");
-        bogieIds.add("S2");
-        bogieIds.add("A1");
-        bogieIds.add("S1"); // duplicate
+        System.out.println("Initial Train: " + train);
 
-        // Display result
-        System.out.println("\nUnique Bogie IDs in Train:");
-        for (String id : bogieIds) {
-            System.out.println(id);
-        }
+        // 🔹 Insert at specific position
+        train.add(1, "G1"); // insert at index 1
+        System.out.println("After inserting G1 at position 2: " + train);
 
-        // Check duplicate manually
-        boolean added = bogieIds.add("A1");
-        if (!added) {
-            System.out.println("\nDuplicate Bogie ID 'A1' not added.");
+        // 🔹 Remove from front
+        train.removeFirst();
+        System.out.println("After removing first bogie: " + train);
+
+        // 🔹 Remove from rear
+        train.removeLast();
+        System.out.println("After removing last bogie: " + train);
+
+        // 🔹 Final display
+        System.out.println("Final Train Consist:");
+        for (String bogie : train) {
+            System.out.println(bogie);
         }
     }
 }

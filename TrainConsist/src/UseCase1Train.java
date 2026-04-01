@@ -2,54 +2,80 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * MAIN CLASS - UseCase1TrainConsistMgmnt
+ * MAIN CLASS - UseCase2TrainConsistMgmnt
  *
- * Use Case 1: Initialize Train and Display Consist Summary
+ * Use Case 2: Add Passenger Bogies to Train
  *
  * Description:
- * This class represents the entry point of the Train Consist
- * Management Application.
+ * This class demonstrates how passenger bogies can be
+ * managed dynamically using ArrayList operations.
  *
  * At this stage, the application:
- * - Creates an empty train consist
- * - Uses a dynamic List to store bogies
- * - Displays initial bogie count
- * - Prints the current state of the train
+ * - Adds new bogies to the train
+ * - Removes existing bogies
+ * - Checks for bogie availability
+ * - Displays the final consist
  *
- * This use case introduces collection initialization and
- * basic program startup flow.
+ * This maps CRUD operations using ArrayList.
  *
  * @author Developer
- * @version 1.0
+ * @version 2.0
  */
 public class UseCase1Train {
 
     public static void main(String[] args) {
 
-        // Step 1: Initialize an empty train consist
+        // Create train consist
         List<String> trainConsist = new ArrayList<>();
 
-        // Step 2: Display initial bogie count
-        System.out.println("=== Train Consist Management System ===");
-        System.out.println("Initializing train consist...");
-        System.out.println("Initial bogie count: " + trainConsist.size());
+        System.out.println("====================================");
+        System.out.println(" Train Consist Management System ");
+        System.out.println("====================================");
 
-        // Step 3: Display current state of the train
+        // 🔹 ADD bogies (Create)
+        System.out.println("\nAdding passenger bogies...");
+        trainConsist.add("Sleeper Coach S1");
+        trainConsist.add("Sleeper Coach S2");
+        trainConsist.add("AC Coach A1");
+        trainConsist.add("General Coach G1");
+
+        displayTrainConsist(trainConsist);
+
+        // 🔹 REMOVE bogie (Delete)
+        System.out.println("\nRemoving a bogie (AC Coach A1)...");
+        trainConsist.remove("AC Coach A1");
+
+        displayTrainConsist(trainConsist);
+
+        // 🔹 CHECK availability (Read)
+        System.out.println("\nChecking bogie availability...");
+        if (trainConsist.contains("Sleeper Coach S1")) {
+            System.out.println("Sleeper Coach S1 is available in the train.");
+        } else {
+            System.out.println("Sleeper Coach S1 is NOT available.");
+        }
+
+        // 🔹 FINAL STATE
+        System.out.println("\nFinal Train Consist:");
         displayTrainConsist(trainConsist);
     }
 
     /**
-     * Method to display the current state of the train consist
+     * Method to display train consist
      */
     public static void displayTrainConsist(List<String> consist) {
+
         System.out.println("\nCurrent Train Consist:");
+        System.out.println("--------------------------------");
 
         if (consist.isEmpty()) {
-            System.out.println("No bogies attached. Train is empty.");
+            System.out.println("No bogies attached. Train is EMPTY.");
         } else {
             for (int i = 0; i < consist.size(); i++) {
-                System.out.println("Bogie " + (i + 1) + ": " + consist.get(i));
+                System.out.println("Bogie " + (i + 1) + " : " + consist.get(i));
             }
         }
+
+        System.out.println("--------------------------------");
     }
 }

@@ -1,55 +1,63 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * MAIN CLASS - UseCase7TrainConsistMgmnt
+ * MAIN CLASS - UseCase8TrainConsistMgmnt
  *
- * Use Case 7: Sort Bogies by Capacity (Comparator)
+ * Use Case 8: Filter Passenger Bogies Using Streams
  *
  * Description:
- * This class sorts passenger bogies based on seating
- * capacity using a custom Comparator.
+ * This class filters passenger bogies based on seating
+ * capacity using Java Stream API.
  *
  * @author Developer
- * @version 7.0
+ * @version 8.0
  */
-public class UseCase1Train {
+public class UseCase1Train{
 
-    // Inner Bogie class to model passenger bogies
+    // Reusing Bogie model from UC7
     static class Bogie {
-        String id;
-        int seatingCapacity;
+        String name;
+        int capacity;
 
-        public Bogie(String id, int seatingCapacity) {
-            this.id = id;
-            this.seatingCapacity = seatingCapacity;
+        public Bogie(String name, int capacity) {
+            this.name = name;
+            this.capacity = capacity;
         }
 
         @Override
         public String toString() {
-            return id + " (Seats: " + seatingCapacity + ")";
+            return name + " -> " + capacity;
         }
     }
 
     public static void main(String[] args) {
 
-        // Step 1: Create list of bogies
-        List<Bogie> trainConsist = new ArrayList<>();
-        trainConsist.add(new Bogie("S1", 72));
-        trainConsist.add(new Bogie("A1", 48));
-        trainConsist.add(new Bogie("S2", 72));
-        trainConsist.add(new Bogie("G1", 90));
+        System.out.println("========================================");
+        System.out.println(" UC8 - Filter Passenger Bogies Using Streams ");
+        System.out.println("========================================\n");
 
-        // Step 2: Display unsorted bogies
-        System.out.println("Unsorted Train Consist:");
-        trainConsist.forEach(System.out::println);
+        // Step 1: Create List of passenger bogies
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("General", 90));
 
-        // Step 3: Sort bogies by seating capacity using Comparator
-        trainConsist.sort(Comparator.comparingInt(b -> b.seatingCapacity));
+        // Step 2: Display all bogies
+        System.out.println("ALL Bogies:");
+        bogies.forEach(System.out::println);
 
-        // Step 4: Display sorted bogies
-        System.out.println("\nSorted Train Consist by Seating Capacity:");
-        trainConsist.forEach(System.out::println);
+        // Step 3: Filter bogies with capacity > 60 using Streams
+        List<Bogie> filteredBogies = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
+
+        // Step 4: Display filtered bogies
+        System.out.println("\nFiltered Bogies (Capacity > 60):");
+        filteredBogies.forEach(System.out::println);
+
+        System.out.println("\nUCB filtering completed.");
     }
 }

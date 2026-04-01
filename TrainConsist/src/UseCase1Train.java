@@ -1,45 +1,55 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
- * MAIN CLASS - UseCase6TrainConsistMgunt
+ * MAIN CLASS - UseCase7TrainConsistMgmnt
  *
- * Use Case 6: Map Bogie to Capacity (HashMap)
+ * Use Case 7: Sort Bogies by Capacity (Comparator)
  *
  * Description:
- * This class associates each bogie with its seating or
- * load capacity using a key-value mapping structure.
+ * This class sorts passenger bogies based on seating
+ * capacity using a custom Comparator.
  *
  * @author Developer
- * @version 6.0
+ * @version 7.0
  */
-public class UseCase6TrainConsistMgunt {
+public class UseCase1Train {
+
+    // Inner Bogie class to model passenger bogies
+    static class Bogie {
+        String id;
+        int seatingCapacity;
+
+        public Bogie(String id, int seatingCapacity) {
+            this.id = id;
+            this.seatingCapacity = seatingCapacity;
+        }
+
+        @Override
+        public String toString() {
+            return id + " (Seats: " + seatingCapacity + ")";
+        }
+    }
 
     public static void main(String[] args) {
 
-        // HashMap to store bogie -> capacity mapping
-        Map<String, Integer> bogieCapacity = new HashMap<>();
+        // Step 1: Create list of bogies
+        List<Bogie> trainConsist = new ArrayList<>();
+        trainConsist.add(new Bogie("S1", 72));
+        trainConsist.add(new Bogie("A1", 48));
+        trainConsist.add(new Bogie("S2", 72));
+        trainConsist.add(new Bogie("G1", 90));
 
-        // 🔹 Insert bogie capacities
-        bogieCapacity.put("S1", 72);   // Sleeper Coach seats
-        bogieCapacity.put("S2", 72);
-        bogieCapacity.put("A1", 48);   // AC Coach seats
-        bogieCapacity.put("G1", 90);   // General Coach capacity
-        bogieCapacity.put("L1", 200);  // Load/Parcel Coach capacity
+        // Step 2: Display unsorted bogies
+        System.out.println("Unsorted Train Consist:");
+        trainConsist.forEach(System.out::println);
 
-        // 🔹 Display bogie-capacity information
-        System.out.println("Train Bogie Capacities:");
-        System.out.println("----------------------");
-        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
-            System.out.println("Bogie: " + entry.getKey() + " | Capacity: " + entry.getValue());
-        }
+        // Step 3: Sort bogies by seating capacity using Comparator
+        trainConsist.sort(Comparator.comparingInt(b -> b.seatingCapacity));
 
-        // 🔹 Lookup example
-        String lookupBogie = "A1";
-        if (bogieCapacity.containsKey(lookupBogie)) {
-            System.out.println("\nLookup: Bogie " + lookupBogie + " has capacity " + bogieCapacity.get(lookupBogie));
-        } else {
-            System.out.println("\nBogie " + lookupBogie + " not found.");
-        }
+        // Step 4: Display sorted bogies
+        System.out.println("\nSorted Train Consist by Seating Capacity:");
+        trainConsist.forEach(System.out::println);
     }
 }

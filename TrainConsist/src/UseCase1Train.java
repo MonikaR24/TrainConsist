@@ -1,41 +1,45 @@
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * MAIN CLASS - UseCase5TrainConsistMgunt
+ * MAIN CLASS - UseCase6TrainConsistMgunt
  *
- * Use Case 5: Preserve Insertion Order of Bogies
+ * Use Case 6: Map Bogie to Capacity (HashMap)
  *
  * Description:
- * This class maintains the exact attachment order of bogies
- * while also preventing duplicate entries using LinkedHashSet.
+ * This class associates each bogie with its seating or
+ * load capacity using a key-value mapping structure.
  *
  * @author Developer
- * @version 5.0
+ * @version 6.0
  */
-public class UseCase1Train {
+public class UseCase6TrainConsistMgunt {
 
     public static void main(String[] args) {
 
-        // LinkedHashSet to store unique bogies in insertion order
-        Set<String> trainConsist = new LinkedHashSet<>();
+        // HashMap to store bogie -> capacity mapping
+        Map<String, Integer> bogieCapacity = new HashMap<>();
 
-        // 🔹 Attach bogies in order
-        trainConsist.add("S1");
-        trainConsist.add("S2");
-        trainConsist.add("A1");
-        trainConsist.add("G1");
+        // 🔹 Insert bogie capacities
+        bogieCapacity.put("S1", 72);   // Sleeper Coach seats
+        bogieCapacity.put("S2", 72);
+        bogieCapacity.put("A1", 48);   // AC Coach seats
+        bogieCapacity.put("G1", 90);   // General Coach capacity
+        bogieCapacity.put("L1", 200);  // Load/Parcel Coach capacity
 
-        // Attempt to add duplicate
-        boolean added = trainConsist.add("S1");
-        if (!added) {
-            System.out.println("Duplicate bogie 'S1' not added.");
+        // 🔹 Display bogie-capacity information
+        System.out.println("Train Bogie Capacities:");
+        System.out.println("----------------------");
+        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
+            System.out.println("Bogie: " + entry.getKey() + " | Capacity: " + entry.getValue());
         }
 
-        // 🔹 Display final train formation
-        System.out.println("\nFinal Train Consist (Ordered & Unique):");
-        for (String bogie : trainConsist) {
-            System.out.println(bogie);
+        // 🔹 Lookup example
+        String lookupBogie = "A1";
+        if (bogieCapacity.containsKey(lookupBogie)) {
+            System.out.println("\nLookup: Bogie " + lookupBogie + " has capacity " + bogieCapacity.get(lookupBogie));
+        } else {
+            System.out.println("\nBogie " + lookupBogie + " not found.");
         }
     }
 }
